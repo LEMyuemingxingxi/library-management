@@ -1,0 +1,7 @@
+//
+// library.rc2 - 非 Visual Studio 直接编辑的资源
+//
+
+#ifdef APSTUDIO_INVOKED
+#error 此文件不能用 Microsoft Visual C++ 编辑
+#endif

@@ -1,0 +1,133 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+#include "targetver.h"
+#include "afxres.h"
+#include "verrsrc.h"
+#undef APSTUDIO_READONLY_SYMBOLS
+
+#pragma code_page(65001)
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+
+#ifdef APSTUDIO_INVOKED
+1 TEXTINCLUDE
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "#include ""verrsrc.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#include ""res\\library.rc2""\r\n"
+    "#include ""l.CHS\\afxres.rc""\r\n"
+    "#if !defined(_AFXDLL)\r\n"
+    "#include ""l.CHS\\afxribbon.rc""\r\n"
+    "#endif\r\n"
+    "#endif\r\n"
+    "\0"
+END
+#endif
+
+IDR_MAINFRAME           ICON                    "res\\library.ico"
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 图书管理系统"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
+    LTEXT           "图书管理系统，版本 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "版权所有 (C) 2026",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
+END
+
+IDD_LIBRARY_DIALOG DIALOGEX 0, 0, 470, 235
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "图书管理系统"
+FONT 9, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,14,18,268,175
+    GROUPBOX        "查看与操作",IDC_GROUP_OPERATIONS,292,18,164,200
+    LTEXT           "编号：",IDC_STATIC,302,38,30,8
+    LTEXT           "名称：",IDC_STATIC,302,56,30,8
+    LTEXT           "价格：",IDC_STATIC,302,74,30,8
+    LTEXT           "类型：",IDC_STATIC,302,92,30,8
+    LTEXT           "页数：",IDC_STATIC_EXTRA1,302,110,30,8
+    LTEXT           "大小(MB)：",IDC_STATIC_EXTRA2,302,128,45,8
+    EDITTEXT        IDC_EDIT1,342,35,102,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,342,53,102,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT3,342,71,102,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COMBO1,342,89,102,60,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT4,342,107,102,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COMBO2,342,107,102,60,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT5,342,125,102,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "添加",IDC_BUTTON1,298,148,48,14
+    PUSHBUTTON      "修改",IDC_BUTTON2,352,148,48,14
+    PUSHBUTTON      "删除",IDC_BUTTON3,406,148,44,14
+    PUSHBUTTON      "查询",IDC_BUTTON6,298,166,48,14
+    PUSHBUTTON      "排序",IDC_BUTTON5,352,166,48,14
+    PUSHBUTTON      "保存",IDC_BUTTON4,406,166,44,14
+    PUSHBUTTON      "加载",IDC_BUTTON7,352,184,48,14
+    DEFPUSHBUTTON   "关闭",IDCANCEL,406,205,44,14
+END
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_LIBRARY_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 463
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 228
+    END
+END
+#endif
+
+IDD_LIBRARY_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ABOUTBOX            "关于 图书管理系统(&A)..."
+END
+
+#endif
+
+#ifndef APSTUDIO_INVOKED
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#include "res\library.rc2"
+#include "l.CHS\afxres.rc"
+#if !defined(_AFXDLL)
+#include "l.CHS\afxribbon.rc"
+#endif
+#endif
+#endif

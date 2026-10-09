@@ -1,0 +1,30 @@
+3.1 总体架构设计
+系统采用三层结构：表示层（main.cpp 控制台 / LibraryDlg MFC 界面）→ 业务层（BookManager）→ 数据层（Book / PaperBook / EBook）。
+
+3.2 类体系设计
+        Book（抽象基类）
+       /              \
+ PaperBook          EBook
+（纸质图书）        （电子图书）
+
+BookManager 聚合 vector<unique_ptr<Book>>，并通过 map<string,int> 维护编号索引。
+
+3.3 主要类设计
+（1）Book：私有成员 bookID、bookName、price；纯虚函数 showInfo()、getBookType()；虚函数 saveToFile()；虚析构函数；operator< 供排序；友元 operator<<。
+（2）PaperBook：public 继承 Book，新增 pageCount，override 全部虚函数。
+（3）EBook：public 继承 Book，新增 format、fileSize，override 全部虚函数。
+（4）BookManager：bookList + bookIndex；提供 addBook、deleteBook、searchBook、showAllBooks、sortBooks、saveFile、loadFile、isBookIDExist 等接口。
+
+3.4 源代码文件组织
+Book.h / Book.cpp — 类体系实现
+BookManager.h / BookManager.cpp — 业务逻辑
+main.cpp — 控制台菜单主程序
+LibraryDlg.h / LibraryDlg.cpp — MFC 图形界面
+ConsoleUtil.h、StringUtil.h — 工具头文件
+books.txt — 运行时数据文件
+
+3.5 关键功能设计描述
+多态：make_unique<PaperBook> 存入 vector<unique_ptr<Book>>，调用 book->showInfo() 运行时绑定。
+排序：sort + operator< 按价格升序，排序后 rebuildIndex() 重建 map。
+持久化：多态调用 saveToFile() 写入；loadFile() 按类型字段分支构造对象。
+内存安全：unique_ptr 管理对象，基类 virtual ~Book() 保证派生类正确析构。

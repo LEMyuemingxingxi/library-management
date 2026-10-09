@@ -1,0 +1,91 @@
+###ROW1###
+SOURCE
+1）Book.h 第8-34行：抽象基类含 bookID/bookName/price；第26-27行 showInfo()/getBookType() 纯虚函数；第15行 virtual ~Book()
+2）Book.h 第37、54行：PaperBook/EBook : public Book；Book.cpp 第56-58、84-86行派生类构造
+3）Book.h 第9-12、38-39、55-57行；BookManager.h 第14-15行：成员全部 private
+4）Book.cpp 第13-38、64-71、93-109行；BookManager.cpp 第19-71行：setter/addBook 合法性检查
+5）Book 管数据与多态，BookManager 管集合与文件，main/LibraryDlg 管交互
+SCORE
+22
+REASON
+1）Book 为抽象基类，纯虚 showInfo/getBookType 强制派生类实现（Deitel 第11章 多态）
+2）PaperBook/EBook 公有继承 Book，构造初始化列表调用基类（Stroustrup 第12章 类层次）
+3）所有类数据成员 private，仅 public 接口访问（Deitel 封装原则）
+4）setter 非法输入返回 false 并提示，addBook 双重校验（Stroustrup 第5章 错误处理）
+5）表示层-业务层-数据层职责分离，结构合理
+###ROW2###
+SOURCE
+1）Book.h 第33行 protected Book(...)；Book.cpp 第3-7行基类构造
+2）Book.h 第15行 virtual ~Book()；Book.cpp 第7行实现
+3）BookManager.h 第14行 vector<unique_ptr<Book>>；无裸 new/delete
+SCORE
+14
+REASON
+1）基类/派生类构造函数完整，派生类均 : Book(...) 初始化（Stroustrup 第10章 构造函数）
+2）基类 virtual ~Book()，派生类析构 override，基类指针删除安全（Deitel 第11章 虚析构）
+3）unique_ptr 自动释放，无内存泄漏与野指针（Stroustrup 第13章 资源管理）
+###ROW3###
+SOURCE
+1）Book.h 第37、54行 public 继承
+2）Book.h 第48-50、69-71行 override 重写虚函数
+3）BookManager.cpp 第37-38、67-68行 unique_ptr<Book> 存派生类；第101-102行 Book* 调用
+4）BookManager.cpp 第111-112、102行 showAllBooks/searchBook 多态 showInfo()
+SCORE
+16
+REASON
+1）PaperBook/EBook 均 public 继承 Book，is-a 关系正确（Deitel 第10章 继承）
+2）showInfo/getBookType/saveToFile 及析构均 override（Stroustrup 第12章 虚函数）
+3）vector<unique_ptr<Book>> 实现基类智能指针多态（Deitel 第11章 多态）
+4）查询/显示时 showInfo() 输出页数或格式/大小，多态效果正确
+###ROW4###
+SOURCE
+1）BookManager.h 第14行 vector<unique_ptr<Book>> bookList
+2）BookManager.h 第15行 map<string,int> bookIndex；第209行 isBookIDExist
+3）BookManager.cpp 第122-125行 sort + operator<
+4）BookManager.cpp 第111-112、138-139行 auto 范围 for
+5）BookManager.cpp 第37、67行 make_unique；BookManager.h 第14行 unique_ptr
+SCORE
+14
+REASON
+1）vector 存放全部图书对象，支持动态增删（Deitel 第15章 STL vector）
+2）map 维护编号→下标，O(log n) 快速查找（Stroustrup 第16章 关联容器）
+3）sort 算法按 operator< 价格升序排列（Deitel 第16章 算法）
+4）showAllBooks/saveFile 使用 auto 与范围 for 遍历（Stroustrup 第19章 现代 C++）
+5）make_unique/unique_ptr 管理堆对象，无裸指针（Stroustrup 第13章 智能指针）
+###ROW5###
+SOURCE
+1）Book.cpp 第40-42、79-82、117-119行 saveToFile 格式
+2）BookManager.cpp 第166-193行 loadFile 按类型分支解析
+3）BookManager.cpp 第133-135、143-145、154-156、199-201行 异常处理
+4）main.cpp 第67、130行；LibraryDlg.cpp 第77、87行 启动加载/退出保存
+SCORE
+12
+REASON
+1）PaperBook/EBook 按约定格式写入 books.txt，字段完整（Deitel 第17章 文件流）
+2）loadFile 逐行读取并按类型 make_unique 重建对象，加载正确
+3）文件打开失败、ifs.bad()/ofs.fail() 均有错误提示（Stroustrup 第10章 I/O）
+4）程序启动自动 loadFile、退出 saveFile，重启可恢复数据
+###ROW6###
+SOURCE
+1）main.cpp 第48-71行 showMenu + while 循环
+2）main.cpp 第77-127行；LibraryDlg.cpp 第322-461行 增删查显排序
+3）main.cpp 第13-46行 readInt/readDouble；LibraryDlg MessageBox 校验
+SCORE
+12
+REASON
+1）控制台 8 项菜单清晰，循环操作；MFC 图形版功能等价
+2）添加、显示、查询、删除、排序功能均已实现并测试通过
+3）非法输入有提示，程序运行稳定不崩溃
+###ROW7###
+SOURCE
+1）Book.h/cpp、BookManager.cpp、main.cpp 全文注释
+2）BookManager 无裸 new/delete；无冗余逻辑
+3）override/nullptr/auto/make_unique/lambda 等（Book.h 第43行等）
+4）main.cpp 第13-46行；BookManager.cpp 第19-71行；setter 校验
+SCORE
+10
+REASON
+1）代码缩进规范，关键类/多态/Stl 处有中文注释
+2）unique_ptr 管理内存，无裸指针与冗余代码
+3）使用 override、nullptr、auto、make_unique 等 modern C++ 规范
+4）表示层+BookManager+setter 三层输入合法性校验

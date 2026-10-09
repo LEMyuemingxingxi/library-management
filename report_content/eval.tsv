@@ -1,0 +1,32 @@
+1）Book.h 第8-34行：抽象基类含 bookID/bookName/price 私有成员；第26-27行 showInfo()/getBookType() 纯虚函数；第15行 virtual ~Book()
+2）Book.h 第37、54行：class PaperBook/EBook : public Book；Book.cpp 第56-58、84-86行派生类构造调用 Book(...)
+3）Book.h 第9-12、38-39、55-57行；BookManager.h 第14-15行：全部成员变量 private
+4）Book.cpp 第13-38、64-71、93-109行；BookManager.cpp 第19-71行：setter 与 addBook 均校验空值/负数/格式
+5）Book 负责数据与多态接口，BookManager 负责集合管理与持久化，main/LibraryDlg 负责交互，职责分离	22	1）Book 为抽象基类，纯虚 showInfo/getBookType 强制派生类实现，符合 Stroustrup 多态设计规范
+2）PaperBook/EBook 公有继承 Book，构造函数初始化列表调用基类，继承结构正确
+3）所有类数据成员均为 private，外部仅通过 public 接口访问，封装严格
+4）每个 setter 非法输入返回 false 并提示，addBook 双重校验，Getter/Setter 规范
+5）三层架构清晰：表示层-业务层-数据层，各类职责单一、结构合理
+Book.h 第33行 protected Book(...)；Book.cpp 第3-7行；PaperBook/EBook 构造 Book.cpp 第56-58、84-86行；Book.h 第43、62行 ~PaperBook/~EBook override	14	1）基类默认/带参构造完整，派生类构造均通过 : Book(...) 初始化基类部分
+2）基类声明 virtual ~Book()（Book.h 第15行），派生类析构 override，避免通过基类指针删除时泄漏
+3）BookManager 使用 unique_ptr 管理对象，无裸 new/delete，无野指针
+Book.h 第37、54行 public 继承；第48-50、69-71行 override；BookManager.cpp 第37-38、67-68、101-102、111-112行	16	1）PaperBook、EBook 均 public 继承 Book，满足 is-a 关系
+2）showInfo/getBookType/saveToFile 及析构函数均使用 override 重写
+3）vector<unique_ptr<Book>> 存放派生类对象，searchBook 用 Book* 调用（BookManager.cpp 第101-102行）
+4）showAllBooks/searchBook 多态调用 showInfo()，纸质书输出页数、电子书输出格式与大小，效果正确
+BookManager.h 第14-15行；BookManager.cpp 第117-127行 sort；第111-112、138-139行 auto 范围 for；第37、67行 make_unique	14	vector<unique_ptr<Book>> 存放全部图书，满足多态容器要求
+map<string,int> bookIndex 实现编号 O(log n) 查找（BookManager.cpp 第209行）
+sort(bookList.begin(), bookList.end(), lambda) 调用 operator< 按价格升序
+showAllBooks/saveFile 使用 for (const auto& book : bookList) 范围 for
+make_unique<PaperBook/EBook> + unique_ptr 管理，无裸指针
+Book.cpp 第40-42、79-82、117-119行 saveToFile；BookManager.cpp 第131-205行 saveFile/loadFile；main.cpp 第67、130行	12	纸质书/电子书按约定格式逐行写入 books.txt，字段完整
+loadFile 按 PaperBook/EBook 分支解析并 make_unique 重建对象
+ofstream 打开失败、ifs.bad() 写入/读取异常均有提示处理
+启动 loadFile()、退出 saveFile()，支持重启恢复数据
+main.cpp 第48-137行菜单循环；LibraryDlg.cpp 第322-497行按钮功能	12	控制台 8 项菜单清晰，while 循环可反复操作；MFC 图形界面功能等价
+添加/显示/查询/删除/排序均已实现且经测试正确
+readInt/readDouble 及 MessageBox 校验，非法输入不崩溃
+Book.h/cpp、BookManager.cpp、main.cpp 全文	10	代码缩进统一，关键类与多态/Stl 处有中文注释
+无裸指针管理动态对象，无冗余重复逻辑
+使用 override、nullptr、auto、make_unique、lambda 等现代 C++ 特性
+表示层+BookManager+setter 三层输入合法性校验
